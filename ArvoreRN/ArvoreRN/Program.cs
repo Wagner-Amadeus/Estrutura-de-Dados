@@ -46,9 +46,13 @@
             arvore.Mostrar();
             Console.WriteLine("\n\n\n\n\n");
 
+            arvore.Remover(50);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
 
-
-
+            arvore.Remover(25);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
         }
     }
 }

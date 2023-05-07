@@ -113,25 +113,28 @@ namespace ArvoreRN
             }
 
             // Caso 3 : Nodo com 2 filhos
-            Node sucessor = Sucessor(n);
-            n.Key = sucessor.Key;
-            pai = sucessor.Pai;
-
-            if (sucessor == n.Direito)
-            {
-                pai = n;
-            }
-            if (sucessor == pai.Esquerdo)
-            {
-                pai.Esquerdo = sucessor.Direito;
-            }
             else
             {
-                pai.Direito = sucessor.Direito;
-            }
-            if (sucessor.Direito != Nulo)
-            {
-                sucessor.Direito.Pai = pai;
+                Node sucessor = Sucessor(n);
+                n.Key = sucessor.Key;
+                pai = sucessor.Pai;
+
+                if (sucessor == n.Direito)
+                {
+                    pai = n;
+                }
+                if (sucessor == pai.Esquerdo)
+                {
+                    pai.Esquerdo = sucessor.Direito;
+                }
+                else
+                {
+                    pai.Direito = sucessor.Direito;
+                }
+                if (sucessor.Direito != Nulo)
+                {
+                    sucessor.Direito.Pai = pai;
+                }
             }
 
             RestaurarPropriedadesRN(n);
