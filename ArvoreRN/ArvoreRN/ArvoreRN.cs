@@ -1,4 +1,6 @@
 ﻿
+using System.Text.Json.Nodes;
+
 namespace ArvoreRN
 {
     class ArvoreRN
@@ -62,6 +64,77 @@ namespace ArvoreRN
         public void Mostrar()
         {
             InOrdem(Raiz, "    ");
+        }
+
+        public void Remover(int dado)
+        {
+            Node n = Busca(dado);
+            if (n == Nulo)
+            {
+                return;
+            }
+
+            Node pai = n.Pai;
+
+            //Caso 1 : Nodo sem filhos
+            if (IsExternal(n))
+            {
+                if (pai == Nulo)
+                {
+                    Raiz = Nulo;
+                }
+                else if (n == pai.Esquerdo)
+                {
+                    pai.Esquerdo = Nulo;
+                }
+                else
+                {
+                    pai.Direito = Nulo;
+                }
+            }
+
+            // Caso 2 : Nodo com um filho
+            else if (n.Esquerdo == Nulo || n.Direito == Nulo)
+            {
+                Node filho = n.Esquerdo == Nulo ? n.Esquerdo : n.Direito;
+                if (pai == Nulo)
+                {
+                    Raiz = filho;
+                }
+                else if (n == pai.Esquerdo)
+                {
+                    pai.Esquerdo = filho;
+                }
+                else
+                {
+                    pai.Direito = filho;
+                }
+                filho.Pai = pai;
+            }
+
+            // Caso 3 : Nodo com 2 filhos
+            Node sucessor = Sucessor(n);
+            n.Key = sucessor.Key;
+            pai = sucessor.Pai;
+
+            if (sucessor == n.Direito)
+            {
+                pai = n;
+            }
+            if (sucessor == pai.Esquerdo)
+            {
+                pai.Esquerdo = sucessor.Direito;
+            }
+            else
+            {
+                pai.Direito = sucessor.Direito;
+            }
+            if (sucessor.Direito != Nulo)
+            {
+                sucessor.Direito.Pai = pai;
+            }
+
+            RestaurarPropriedadesRN(n);
         }
 
 
@@ -197,6 +270,58 @@ namespace ArvoreRN
                 Console.WriteLine(espaco + p.Key + "," + p.Cor);
                 InOrdem(p.Direito, "         " + espaco);
             }
+        }
+
+        private bool IsExternal(Node n)
+        {
+            return (n.Direito == Nulo && n.Esquerdo == Nulo);
+        }
+
+        private Node Sucessor(Node n)
+        {
+            if (n == Nulo)
+            {
+                return Nulo;
+            }
+
+            if (n.Direito != Nulo)
+            {
+                Node Aux = n.Direito;
+                while (Aux.Esquerdo != Nulo)
+                {
+                    Aux = Aux.Esquerdo;
+                }
+                return Aux;
+            }
+
+            else
+            {
+                Node Aux = n.Pai;
+                while (Aux != Nulo && n == Aux.Direito)
+                {
+                    n = Aux;
+                    Aux = Aux.Pai;
+                }
+                return Aux;
+            }
+        }
+
+        // Método de Busca Auxiliar para remover nodos
+        private Node Busca (int key)
+        {
+            Node atual = Raiz;
+            while (atual != Nulo && atual.Key != key)
+            {
+                if (key < atual.Key)
+                {
+                    atual = atual.Esquerdo;
+                }
+                else
+                {
+                    atual = atual.Direito;
+                }
+            }
+            return atual;
         }
     }
 }

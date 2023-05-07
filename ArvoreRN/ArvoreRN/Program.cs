@@ -5,15 +5,50 @@
         static void Main(string [] args)
         {
             ArvoreRN arvore = new ArvoreRN();
-            arvore.Inserir(34);
-            arvore.Inserir(3);
-            arvore.Inserir(50);
-            arvore.Inserir(20);
-            arvore.Inserir(15);
-            arvore.Inserir(16);
+
+
             arvore.Inserir(25);
-            arvore.Inserir(27);
             arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+            arvore.Inserir(30);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+            arvore.Inserir(35);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+            arvore.Inserir(50);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+            arvore.Inserir(9);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+            arvore.Inserir(15);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+
+            arvore.Remover(15);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+
+            arvore.Remover(30);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+
+            arvore.Remover(9);
+            arvore.Mostrar();
+            Console.WriteLine("\n\n\n\n\n");
+
+
+
+
         }
     }
 }
