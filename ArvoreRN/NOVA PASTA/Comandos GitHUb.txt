@@ -1,5 +1,0 @@
-git remote add origin <url>
-
-git pull origin main
-
-git push origin main
